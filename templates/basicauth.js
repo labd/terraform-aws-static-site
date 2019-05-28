@@ -14,7 +14,7 @@ exports.handler = (event, context, callback) => {
   // Require Basic authentication
   if (
     typeof headers.authorization == "undefined" ||
-    authStrings.indexOf(headers.authorization[0].value) > 0
+    authStrings.indexOf(headers.authorization[0].value) == -1
   ) {
     const body = "Unauthorized";
     const response = {
