@@ -9,7 +9,7 @@ data "template_file" "basicauth" {
 
 data "archive_file" "basicauth" {
   type        = "zip"
-  output_path = "${path.module}/files/lambda/${local.full_name}-basicauth.zip"
+  output_path = "./files/lambda/${local.full_name}-basicauth.zip"
 
   source {
     content  = "${data.template_file.basicauth.rendered}"
