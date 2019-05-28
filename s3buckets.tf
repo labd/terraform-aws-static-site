@@ -6,8 +6,8 @@ data "aws_iam_policy_document" "website_policy" {
     ]
 
     resources = [
-      "arn:aws:s3:::${local.full_name}",
-      "arn:aws:s3:::${local.full_name}/*",
+      "arn:aws:s3:::${var.name}",
+      "arn:aws:s3:::${var.name}/*",
     ]
 
     principals {
@@ -25,8 +25,8 @@ data "aws_iam_policy_document" "website_policy" {
     ]
 
     resources = [
-      "arn:aws:s3:::${local.full_name}",
-      "arn:aws:s3:::${local.full_name}/*",
+      "arn:aws:s3:::${var.name}",
+      "arn:aws:s3:::${var.name}/*",
     ]
 
     principals {
@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "website_policy" {
 }
 
 resource "aws_s3_bucket" "website" {
-  bucket = "${local.full_name}"
+  bucket = "${var.name}"
   policy = "${data.aws_iam_policy_document.website_policy.json}"
 
   website {

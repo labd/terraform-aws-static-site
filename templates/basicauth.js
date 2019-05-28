@@ -6,13 +6,15 @@ exports.handler = (event, context, callback) => {
   const headers = request.headers;
 
   // Configure authentication
-  const authString =
-    "Basic " + new Buffer(`${username}:${password}`).toString("base64");
+  const authStrings = [];
+  for (let authString of JSON.parse(`${authentication}`)) {
+    authStrings.push("Basic " + new Buffer(authString).toString("base64"));
+  }
 
   // Require Basic authentication
   if (
     typeof headers.authorization == "undefined" ||
-    headers.authorization[0].value != authString
+    authStrings.indexOf(headers.authorization[0].value) > 0
   ) {
     const body = "Unauthorized";
     const response = {
