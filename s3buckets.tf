@@ -47,6 +47,13 @@ resource "aws_s3_bucket" "website" {
     index_document = "index.html"
   }
 
+  cors_rule {
+    allowed_origins = ["*"]
+    allowed_methods = ["HEAD", "GET", "PUT", "POST", "DELETE"]
+    max_age_seconds = 3000
+    allowed_headers = ["*"]
+  }
+
   lifecycle {
     prevent_destroy = true
   }
