@@ -5,6 +5,13 @@ exports.handler = (event, context, callback) => {
   const request = event.Records[0].cf.request;
   const headers = request.headers;
 
+  // Skip basic auth for fonts, otherwise fonts can't be loaded cross domain for some
+  // reason the CSS guys decided to always load fonts in anonymous mode when loaded from
+  // a CSS file. This is only for fonts, not images.
+  if (/\.(eot|ttf|woff|woff2)$/i.test(request.uri)) {
+    callback(null, request);
+  }
+
   // Configure authentication
   const authStrings = [];
   for (let authString of JSON.parse(`${authentication}`)) {
