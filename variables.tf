@@ -18,6 +18,11 @@ variable "authentication" {
   default     = []
 }
 
+variable "index_document" {
+  type    = "string"
+  default = "index.html"
+}
+
 variable "domains" {
   type = "list"
 }
