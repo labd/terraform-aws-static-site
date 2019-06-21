@@ -30,10 +30,6 @@ variable "domains" {
 variable "deploy_role_arn" {}
 variable "ssl_certificate_arn" {}
 
-variable "waf_blocked" {
-  default = "false"
-}
-
 variable "aws_waf_rule_id" {
   default = ""
 }
