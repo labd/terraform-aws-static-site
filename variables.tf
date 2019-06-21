@@ -29,3 +29,7 @@ variable "domains" {
 
 variable "deploy_role_arn" {}
 variable "ssl_certificate_arn" {}
+
+variable "aws_waf_rule_id" {
+  default = ""
+}
