@@ -86,6 +86,8 @@ resource "aws_cloudfront_distribution" "cloudfront_basicauth" {
     minimum_protocol_version       = "TLSv1.2_2018"
     ssl_support_method             = "sni-only"
   }
+
+  depends_on = ["aws_waf_web_acl.main"]
 }
 
 resource "aws_cloudfront_distribution" "cloudfront" {
@@ -165,4 +167,6 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     minimum_protocol_version       = "TLSv1.2_2018"
     ssl_support_method             = "sni-only"
   }
+
+  depends_on = ["aws_waf_web_acl.main"]
 }
