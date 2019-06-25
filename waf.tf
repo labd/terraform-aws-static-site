@@ -16,5 +16,5 @@ resource "aws_waf_web_acl" "main" {
     type     = "REGULAR"
   }
 
-  count = "${lenght(var.aws_waf_rule_id) > 0 ? 1 : 0}"
+  count = "${length(var.aws_waf_rule_id) > 0 ? 1 : 0}"
 }
