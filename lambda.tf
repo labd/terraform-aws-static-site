@@ -1,5 +1,5 @@
 data "template_file" "basicauth" {
-  count    = "${length(var.authentication) > 0 ? "1" : "0"}"
+  count    = "${length(var.authentication) > 0 ? "${var.enabled ? 1 : 0}" : "0"}"
   template = "${file("${path.module}/templates/basicauth.js")}"
 
   vars = {
@@ -8,7 +8,7 @@ data "template_file" "basicauth" {
 }
 
 data "archive_file" "basicauth" {
-  count       = "${length(var.authentication) > 0 ? "1" : "0"}"
+  count       = "${length(var.authentication) > 0 ? "${var.enabled ? 1 : 0}" : "0"}"
   type        = "zip"
   output_path = "./files/lambda/${var.name}-basicauth.zip"
 
@@ -19,7 +19,7 @@ data "archive_file" "basicauth" {
 }
 
 resource "aws_lambda_function" "basicauth" {
-  count            = "${length(var.authentication) > 0 ? "1" : "0"}"
+  count            = "${length(var.authentication) > 0 ? "${var.enabled ? 1 : 0}" : "0"}"
   provider         = "aws.useast"
   filename         = "${data.archive_file.basicauth.output_path}"
   function_name    = "${var.name}-basicauth"

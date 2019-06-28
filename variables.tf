@@ -33,3 +33,8 @@ variable "ssl_certificate_arn" {}
 variable "aws_waf_rule_id" {
   default = ""
 }
+
+variable "enabled" {
+  default     = true
+  description = "Enable / Disable this environment"
+}

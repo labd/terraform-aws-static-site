@@ -1,4 +1,5 @@
 resource "aws_waf_web_acl" "main" {
+  count       = "${var.waf_blocked == "true" ? "${var.enabled ? 1 : 0}" : 0}"
   name        = "${var.name}"
   metric_name = "${replace(var.name, "-", "")}"
 
@@ -15,6 +16,4 @@ resource "aws_waf_web_acl" "main" {
     rule_id  = "${var.aws_waf_rule_id}"
     type     = "REGULAR"
   }
-
-  count = "${length(var.aws_waf_rule_id) > 0 ? 1 : 0}"
 }

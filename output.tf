@@ -11,9 +11,9 @@ locals {
 }
 
 output "domain_name" {
-  value = "${local.domain_names[0]}"
+  value = "${length(local.domain_names) > 0 ? element(local.domain_names, 0) : ""}"
 }
 
 output "hosted_zone_id" {
-  value = "${local.hosted_zone_ids[0]}"
+  value = "${length(local.hosted_zone_ids) > 0 ? element(local.hosted_zone_ids, 0) : ""}"
 }
