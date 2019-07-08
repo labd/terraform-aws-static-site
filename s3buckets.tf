@@ -1,4 +1,6 @@
 data "aws_iam_policy_document" "website_policy" {
+  count = "${var.enabled ? "1" : "0"}"
+
   statement {
     actions = [
       "s3:GetObject",
