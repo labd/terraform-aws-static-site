@@ -1,4 +1,5 @@
 resource "aws_cloudfront_origin_access_identity" "cloudfront_identity" {
+  count   = "${var.enabled ? "1": "0"}"
   comment = "${var.description} CloudFront"
 }
 
