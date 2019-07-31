@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "cloudfront_basicauth" {
   price_class         = "PriceClass_100" # Run in EU and USA (no ASIA)
 
   origin {
-    domain_name = "${aws_s3_bucket.website.bucket_domain_name}"
+    domain_name = "${aws_s3_bucket.website.0.bucket_domain_name}"
     origin_id   = "s3-public"
 
     s3_origin_config {
@@ -96,7 +96,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   enabled             = true
   comment             = "${var.description}"
   default_root_object = "index.html"
-  aliases             = ["${var.domains}"]
+  aliases             = "${var.domains}"
   price_class         = "PriceClass_100" # Run in EU and USA (no ASIA)
 
   origin {
