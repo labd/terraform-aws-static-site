@@ -1,5 +1,5 @@
 resource "aws_cloudfront_origin_access_identity" "cloudfront_identity" {
-  count   = "${var.enabled ? "1": "0"}"
+  count   = "${var.enabled ? "1" : "0"}"
   comment = "${var.description} CloudFront"
 }
 
@@ -9,14 +9,14 @@ resource "aws_cloudfront_distribution" "cloudfront_basicauth" {
   comment             = "${var.description}"
   default_root_object = "index.html"
   aliases             = ["${var.domains}"]
-  price_class         = "PriceClass_100"                                                     # Run in EU and USA (no ASIA)
+  price_class         = "PriceClass_100" # Run in EU and USA (no ASIA)
 
   origin {
     domain_name = "${aws_s3_bucket.website.bucket_domain_name}"
     origin_id   = "s3-public"
 
     s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.cloudfront_identity.cloudfront_access_identity_path}"
+      origin_access_identity = "${aws_cloudfront_origin_access_identity.cloudfront_identity.0.cloudfront_access_identity_path}"
     }
   }
 
@@ -45,7 +45,7 @@ resource "aws_cloudfront_distribution" "cloudfront_basicauth" {
 
     lambda_function_association {
       event_type = "viewer-request"
-      lambda_arn = "${aws_lambda_function.basicauth.qualified_arn}"
+      lambda_arn = "${aws_lambda_function.basicauth.0.qualified_arn}"
     }
   }
 
@@ -97,14 +97,14 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   comment             = "${var.description}"
   default_root_object = "index.html"
   aliases             = ["${var.domains}"]
-  price_class         = "PriceClass_100"                                                     # Run in EU and USA (no ASIA)
+  price_class         = "PriceClass_100" # Run in EU and USA (no ASIA)
 
   origin {
-    domain_name = "${aws_s3_bucket.website.bucket_domain_name}"
+    domain_name = "${aws_s3_bucket.website.0.bucket_domain_name}"
     origin_id   = "s3-public"
 
     s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.cloudfront_identity.cloudfront_access_identity_path}"
+      origin_access_identity = "${aws_cloudfront_origin_access_identity.cloudfront_identity.0.cloudfront_access_identity_path}"
     }
   }
 
