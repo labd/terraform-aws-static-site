@@ -21,11 +21,11 @@ data "archive_file" "basicauth" {
 resource "aws_lambda_function" "basicauth" {
   count            = "${length(var.authentication) > 0 ? "${var.enabled ? 1 : 0}" : "0"}"
   provider         = "aws.useast"
-  filename         = "${data.archive_file.basicauth.output_path}"
+  filename         = "${data.archive_file.basicauth.0.output_path}"
   function_name    = "${var.name}-basicauth"
   role             = "${aws_iam_role.lambda.arn}"
   handler          = "index.handler"
-  source_code_hash = "${data.archive_file.basicauth.output_base64sha256}"
+  source_code_hash = "${data.archive_file.basicauth.0.output_base64sha256}"
   runtime          = "nodejs8.10"
   publish          = true
 }
