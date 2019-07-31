@@ -23,7 +23,7 @@ resource "aws_lambda_function" "basicauth" {
   provider         = "aws.useast"
   filename         = "${data.archive_file.basicauth.0.output_path}"
   function_name    = "${var.name}-basicauth"
-  role             = "${aws_iam_role.lambda.arn}"
+  role             = "${aws_iam_role.lambda.0.arn}"
   handler          = "index.handler"
   source_code_hash = "${data.archive_file.basicauth.0.output_base64sha256}"
   runtime          = "nodejs8.10"
