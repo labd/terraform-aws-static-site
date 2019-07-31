@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "website_policy" {
       type = "AWS"
 
       identifiers = [
-        "${aws_cloudfront_origin_access_identity.cloudfront_identity.iam_arn}",
+        "${aws_cloudfront_origin_access_identity.cloudfront_identity.0.iam_arn}",
       ]
     }
   }

@@ -13,7 +13,7 @@ data "archive_file" "basicauth" {
   output_path = "./files/lambda/${var.name}-basicauth.zip"
 
   source {
-    content  = "${data.template_file.basicauth.rendered}"
+    content  = "${data.template_file.basicauth.0.rendered}"
     filename = "index.js"
   }
 }
