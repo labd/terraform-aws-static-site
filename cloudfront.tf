@@ -8,7 +8,7 @@ resource "aws_cloudfront_distribution" "cloudfront_basicauth" {
   enabled             = true
   comment             = "${var.description}"
   default_root_object = "index.html"
-  aliases             = ["${var.domains}"]
+  aliases             = "${var.domains}"
   price_class         = "PriceClass_100" # Run in EU and USA (no ASIA)
 
   origin {
