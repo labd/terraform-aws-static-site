@@ -26,6 +26,6 @@ resource "aws_lambda_function" "basicauth" {
   role             = "${aws_iam_role.lambda.0.arn}"
   handler          = "index.handler"
   source_code_hash = "${data.archive_file.basicauth.0.output_base64sha256}"
-  runtime          = "nodejs8.10"
+  runtime          = "nodejs12.x"
   publish          = true
 }
