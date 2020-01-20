@@ -10,6 +10,7 @@ resource "aws_cloudfront_distribution" "cloudfront_basicauth" {
   default_root_object = "index.html"
   aliases             = "${var.domains}"
   price_class         = "PriceClass_100" # Run in EU and USA (no ASIA)
+  wait_for_deployment = false
 
   origin {
     domain_name = "${aws_s3_bucket.website.0.bucket_domain_name}"
@@ -98,6 +99,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   default_root_object = "index.html"
   aliases             = "${var.domains}"
   price_class         = "PriceClass_100" # Run in EU and USA (no ASIA)
+  wait_for_deployment = false
 
   origin {
     domain_name = "${aws_s3_bucket.website.0.bucket_domain_name}"
