@@ -1,23 +1,23 @@
 resource "aws_cloudfront_origin_access_identity" "cloudfront_identity" {
-  count   = "${var.enabled ? "1" : "0"}"
+  count   = var.enabled ? 1 : 0
   comment = "${var.description} CloudFront"
 }
 
 resource "aws_cloudfront_distribution" "cloudfront_basicauth" {
-  count               = "${length(var.authentication) > 0 ? "${var.enabled ? 1 : 0}" : "0"}"
+  count               = length(var.authentication) > 0 ? var.enabled ? 1 : 0 : 0
   enabled             = true
-  comment             = "${var.description}"
+  comment             = var.description
   default_root_object = "index.html"
-  aliases             = "${var.domains}"
+  aliases             = var.domains
   price_class         = "PriceClass_100" # Run in EU and USA (no ASIA)
   wait_for_deployment = false
 
   origin {
-    domain_name = "${aws_s3_bucket.website.0.bucket_domain_name}"
+    domain_name = aws_s3_bucket.website.0.bucket_domain_name
     origin_id   = "s3-public"
 
     s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.cloudfront_identity.0.cloudfront_access_identity_path}"
+      origin_access_identity = aws_cloudfront_origin_access_identity.cloudfront_identity.0.cloudfront_access_identity_path
     }
   }
 
@@ -46,7 +46,7 @@ resource "aws_cloudfront_distribution" "cloudfront_basicauth" {
 
     lambda_function_association {
       event_type = "viewer-request"
-      lambda_arn = "${aws_lambda_function.basicauth.0.qualified_arn}"
+      lambda_arn = aws_lambda_function.basicauth.0.qualified_arn
     }
   }
 
@@ -84,29 +84,29 @@ resource "aws_cloudfront_distribution" "cloudfront_basicauth" {
 
   viewer_certificate {
     cloudfront_default_certificate = false
-    acm_certificate_arn            = "${var.ssl_certificate_arn}"
+    acm_certificate_arn            = var.ssl_certificate_arn
     minimum_protocol_version       = "TLSv1.2_2018"
     ssl_support_method             = "sni-only"
   }
 
-  depends_on = ["aws_waf_web_acl.main"]
+  depends_on = [aws_waf_web_acl.main]
 }
 
 resource "aws_cloudfront_distribution" "cloudfront" {
-  count               = "${length(var.authentication) > 0 ? "0" : "${var.enabled ? 1 : 0}"}"
+  count               = length(var.authentication) > 0 ? 0 : var.enabled ? 1 : 0
   enabled             = true
-  comment             = "${var.description}"
+  comment             = var.description
   default_root_object = "index.html"
-  aliases             = "${var.domains}"
+  aliases             = var.domains
   price_class         = "PriceClass_100" # Run in EU and USA (no ASIA)
   wait_for_deployment = false
 
   origin {
-    domain_name = "${aws_s3_bucket.website.0.bucket_domain_name}"
+    domain_name = aws_s3_bucket.website.0.bucket_domain_name
     origin_id   = "s3-public"
 
     s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.cloudfront_identity.0.cloudfront_access_identity_path}"
+      origin_access_identity = aws_cloudfront_origin_access_identity.cloudfront_identity.0.cloudfront_access_identity_path
     }
   }
 
@@ -172,10 +172,10 @@ resource "aws_cloudfront_distribution" "cloudfront" {
 
   viewer_certificate {
     cloudfront_default_certificate = false
-    acm_certificate_arn            = "${var.ssl_certificate_arn}"
+    acm_certificate_arn            = var.ssl_certificate_arn
     minimum_protocol_version       = "TLSv1.2_2018"
     ssl_support_method             = "sni-only"
   }
 
-  depends_on = ["aws_waf_web_acl.main"]
+  depends_on = [aws_waf_web_acl.main]
 }

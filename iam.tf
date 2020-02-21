@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "lambda" {
 }
 
 resource "aws_iam_role" "lambda" {
-  count              = "${length(var.authentication) > 0 ? "${var.enabled ? 1 : 0}" : "0"}"
+  count              = length(var.authentication) > 0 ? var.enabled ? 1 : 0 : 0
   name               = "${var.name}-lambda"
-  assume_role_policy = "${data.aws_iam_policy_document.lambda.json}"
+  assume_role_policy = data.aws_iam_policy_document.lambda.json
 }

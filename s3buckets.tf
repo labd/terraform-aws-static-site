@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "website_policy" {
-  count = "${var.enabled ? "1" : "0"}"
+  count = var.enabled ? 1 : 0
 
   statement {
     actions = [
@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "website_policy" {
       type = "AWS"
 
       identifiers = [
-        "${aws_cloudfront_origin_access_identity.cloudfront_identity.0.iam_arn}",
+        aws_cloudfront_origin_access_identity.cloudfront_identity.0.iam_arn
       ]
     }
   }
@@ -35,19 +35,19 @@ data "aws_iam_policy_document" "website_policy" {
       type = "AWS"
 
       identifiers = [
-        "${var.deploy_role_arn}",
+        var.deploy_role_arn,
       ]
     }
   }
 }
 
 resource "aws_s3_bucket" "website" {
-  count  = "${var.enabled ? 1 : 0}"
-  bucket = "${var.name}"
-  policy = "${data.aws_iam_policy_document.website_policy.0.json}"
+  count  = var.enabled ? 1 : 0
+  bucket = var.name
+  policy = data.aws_iam_policy_document.website_policy.0.json
 
   website {
-    index_document = "${var.index_document}"
+    index_document = var.index_document
   }
 
   cors_rule {
