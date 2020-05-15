@@ -11,6 +11,7 @@ resource "aws_cloudfront_distribution" "cloudfront_basicauth" {
   aliases             = var.domains
   price_class         = "PriceClass_100" # Run in EU and USA (no ASIA)
   wait_for_deployment = false
+  web_acl_id          = length(var.aws_waf_rule_id) > 0 ? aws_waf_web_acl.main.0.id : ""
 
   origin {
     domain_name = aws_s3_bucket.website.0.bucket_domain_name
@@ -100,6 +101,7 @@ resource "aws_cloudfront_distribution" "cloudfront" {
   aliases             = var.domains
   price_class         = "PriceClass_100" # Run in EU and USA (no ASIA)
   wait_for_deployment = false
+  web_acl_id          = length(var.aws_waf_rule_id) > 0 ? aws_waf_web_acl.main.0.id : ""
 
   origin {
     domain_name = aws_s3_bucket.website.0.bucket_domain_name
