@@ -50,14 +50,20 @@ resource "aws_s3_bucket" "website" {
     index_document = var.index_document
   }
 
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+
+resource "aws_s3_bucket_cors_configuration" "website" {
+  count  = var.enabled ? 1 : 0
+  bucket = aws_s3_bucket.website.0.bucket
+
   cors_rule {
     allowed_origins = ["*"]
     allowed_methods = ["HEAD", "GET", "PUT", "POST", "DELETE"]
     max_age_seconds = 3000
     allowed_headers = ["*"]
-  }
-
-  lifecycle {
-    prevent_destroy = true
   }
 }
