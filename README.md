@@ -22,8 +22,8 @@ module "static_site" {
   ]
 
   providers = {
-    aws        = "aws"
-    aws.useast = "aws.useast"  # Required for Lambda@Edge
+    aws        = aws
+    aws.useast = aws.useast  # Required for Lambda@Edge
   }
 }
 ```
