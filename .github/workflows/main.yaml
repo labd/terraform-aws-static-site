@@ -1,0 +1,16 @@
+name: Terraform Checks
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  terraform:
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+      pull-requests: write
+    uses: labdigital-main/terraform-github-workflows/.github/workflows/terraform-module-v1.yaml@main
+    secrets: inherit
