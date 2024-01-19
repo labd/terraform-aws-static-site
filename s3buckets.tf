@@ -44,17 +44,35 @@ data "aws_iam_policy_document" "website_policy" {
 resource "aws_s3_bucket" "website" {
   count  = var.enabled ? 1 : 0
   bucket = var.name
-  policy = data.aws_iam_policy_document.website_policy.0.json
-
-  website {
-    index_document = var.index_document
-  }
 
   lifecycle {
     prevent_destroy = true
   }
 }
 
+resource "aws_s3_bucket_policy" "website" {
+  count  = var.enabled ? 1 : 0
+  bucket = aws_s3_bucket.website.0.bucket
+  policy = data.aws_iam_policy_document.website_policy.0.json
+}
+
+resource "aws_s3_bucket_website_configuration" "website" {
+  count  = var.enabled ? 1 : 0
+  bucket = aws_s3_bucket.website.0.bucket
+  index_document {
+    suffix = var.index_document
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "website" {
+  count  = var.enabled ? 1 : 0
+  bucket = aws_s3_bucket.website.0.bucket
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
 
 resource "aws_s3_bucket_cors_configuration" "website" {
   count  = var.enabled ? 1 : 0
