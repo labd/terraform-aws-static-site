@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           fetch-depth: 0
 
       - name: Prepare release
-        uses: labd/changie-release-action@v0.3.0
+        uses: labd/changie-release-action@559417a5aa21800e5a9b59a25a57280838be9def # v0.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
