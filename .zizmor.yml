@@ -1,0 +1,5 @@
+rules:
+  ref-confusion:
+    ignore:
+      - main.yaml
+      - registry.yaml
