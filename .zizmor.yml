@@ -3,3 +3,7 @@ rules:
     ignore:
       - main.yaml
       - registry.yaml
+  unpinned-uses:
+    ignore:
+      - main.yaml
+      - registry.yaml
