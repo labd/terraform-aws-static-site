@@ -31,3 +31,4 @@ jobs:
           annotations: true
           min-severity: high
           online-audits: false
+          config: .zizmor.yml
