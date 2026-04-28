@@ -1,9 +1,9 @@
 rules:
   ref-confusion:
     ignore:
-      - main.yaml
-      - registry.yaml
+      - .github/workflows/main.yaml
+      - .github/workflows/registry.yaml
   unpinned-uses:
     ignore:
-      - main.yaml
-      - registry.yaml
+      - .github/workflows/main.yaml
+      - .github/workflows/registry.yaml
