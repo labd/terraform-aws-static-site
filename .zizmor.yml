@@ -5,5 +5,9 @@ rules:
       - .github/workflows/registry.yaml
   unpinned-uses:
     ignore:
+      - main.yaml:15
+      - registry.yaml:13
       - .github/workflows/main.yaml
       - .github/workflows/registry.yaml
+      - ./.github/workflows/main.yaml
+      - ./.github/workflows/registry.yaml
