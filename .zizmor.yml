@@ -1,0 +1,5 @@
+rules:
+  ref-confusion:
+    ignore:
+      - .github/workflows/main.yaml
+      - .github/workflows/registry.yaml
