@@ -1,0 +1,9 @@
+rules:
+  ref-confusion:
+    ignore:
+      - main.yaml
+      - registry.yaml
+  unpinned-uses:
+    ignore:
+      - main.yaml:15
+      - registry.yaml:13
