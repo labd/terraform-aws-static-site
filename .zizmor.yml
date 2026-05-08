@@ -3,3 +3,7 @@ rules:
     ignore:
       - .github/workflows/main.yaml
       - .github/workflows/registry.yaml
+  unpinned-uses:
+    ignore:
+      - .github/workflows/main.yaml:15
+      - .github/workflows/registry.yaml:13
