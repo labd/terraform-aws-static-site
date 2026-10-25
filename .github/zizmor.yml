@@ -1,0 +1,9 @@
+rules:
+  # The reusable workflows live in the internal labdigital-main org, which the
+  # org-wide zizmor run (online audits) cannot access.
+  ref-confusion:
+    disable: true
+  unpinned-uses:
+    ignore:
+      - main.yaml:15
+      - registry.yaml:13
