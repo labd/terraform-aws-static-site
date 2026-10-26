@@ -22,6 +22,6 @@ jobs:
           persist-credentials: false
 
       - name: Prepare release
-        uses: labd/changie-release-action@559417a5aa21800e5a9b59a25a57280838be9def # v0.3.0
+        uses: labd/changie-release-action@52884337ae69c09e891915014a5621f6080f66ca # v0.6.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
